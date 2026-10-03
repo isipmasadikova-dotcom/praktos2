@@ -155,7 +155,9 @@ class _NotesPageState extends State<NotesPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Мои заметки'),
-        leading: const Icon(Icons.edit_note_rounded),
+        leading: const Center(
+          child: Text('📝', style: TextStyle(fontSize: 24)),
+        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -172,14 +174,17 @@ class _NotesPageState extends State<NotesPage> {
                 decoration: const InputDecoration(
                   labelText: 'Новая заметка',
                   hintText: 'Введите текст...',
-                  prefixIcon: Icon(Icons.notes_rounded),
+                  prefixIcon: Center(
+                    widthFactor: 1,
+                    child: Text('📒', style: TextStyle(fontSize: 22)),
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
               FilledButton.icon(
                 key: const Key('saveNoteButton'),
                 onPressed: _saveNote,
-                icon: const Icon(Icons.save_rounded),
+                icon: const Text('💾', style: TextStyle(fontSize: 18)),
                 label: const Text('Сохранить'),
                 style: FilledButton.styleFrom(
                   backgroundColor: const Color(0xFF1E88E5),
@@ -233,15 +238,19 @@ class _NotesPageState extends State<NotesPage> {
                                     key: Key('editNote$index'),
                                     tooltip: 'Редактировать',
                                     onPressed: () => _editNote(index),
-                                    icon: const Icon(Icons.edit_rounded),
+                                    icon: const Text(
+                                      '✏️',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
                                     color: const Color(0xFF1976D2),
                                   ),
                                   IconButton(
                                     key: Key('deleteNote$index'),
                                     tooltip: 'Удалить',
                                     onPressed: () => _deleteNote(index),
-                                    icon: const Icon(
-                                      Icons.delete_outline_rounded,
+                                    icon: const Text(
+                                      '🗑️',
+                                      style: TextStyle(fontSize: 20),
                                     ),
                                     color: Colors.redAccent,
                                   ),
@@ -269,7 +278,7 @@ class _EmptyNotes extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(Icons.note_alt_outlined, size: 72, color: Colors.blue.shade200),
+          const Text('📝', style: TextStyle(fontSize: 64)),
           const SizedBox(height: 12),
           Text(
             'Заметок пока нет',
