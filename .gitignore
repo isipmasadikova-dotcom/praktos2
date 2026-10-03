@@ -33,6 +33,12 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# Local report source files and exported archives
+report_assets/
+report_work/
+*.zip
+Голубые_заметки_Flutter/
+
 # Symbolication related
 app.*.symbols
 
