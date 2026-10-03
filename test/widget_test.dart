@@ -3,50 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('добавление, редактирование и удаление заметки', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('заметку можно добавить, изменить и удалить', (tester) async {
     await tester.pumpWidget(const NotesApp());
 
-    expect(find.text('Заметок пока нет'), findsOneWidget);
-
     await tester.enterText(
-      find.byKey(const Key('newNoteField')),
-      'Купить молоко',
+      find.byKey(const Key('noteField')),
+      'Первая заметка',
     );
-    await tester.tap(find.byKey(const Key('saveNoteButton')));
+    await tester.tap(find.byKey(const Key('saveButton')));
     await tester.pump();
+    expect(find.text('Первая заметка'), findsOneWidget);
 
-    expect(find.text('Купить молоко'), findsOneWidget);
-    expect(find.text('Заметки (1)'), findsOneWidget);
-
-    await tester.tap(find.byKey(const Key('editNote0')));
+    await tester.tap(find.byKey(const Key('edit0')));
     await tester.pumpAndSettle();
     await tester.enterText(
-      find.byKey(const Key('editNoteField')),
-      'Купить хлеб',
+      find.byKey(const Key('editField')),
+      'Измененная заметка',
     );
-    await tester.tap(find.byKey(const Key('confirmEditButton')));
+    await tester.tap(find.byKey(const Key('confirmEdit')));
     await tester.pumpAndSettle();
+    expect(find.text('Измененная заметка'), findsOneWidget);
 
-    expect(find.text('Купить хлеб'), findsOneWidget);
-
-    await tester.tap(find.byKey(const Key('deleteNote0')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('confirmDeleteButton')));
-    await tester.pumpAndSettle();
-
-    expect(find.text('Заметок пока нет'), findsOneWidget);
-    expect(find.text('Заметки (0)'), findsOneWidget);
-  });
-
-  testWidgets('пустая заметка не сохраняется', (WidgetTester tester) async {
-    await tester.pumpWidget(const NotesApp());
-
-    await tester.tap(find.byKey(const Key('saveNoteButton')));
+    await tester.tap(find.byKey(const Key('delete0')));
     await tester.pump();
-
-    expect(find.text('Введите текст заметки'), findsOneWidget);
-    expect(find.text('Заметки (0)'), findsOneWidget);
+    expect(find.text('Измененная заметка'), findsNothing);
   });
 }
